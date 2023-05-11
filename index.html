@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Schedule System</title>
+	<style>
+		table {
+			border-collapse: collapse;
+			width: 100%;
+			margin: auto;
+			font-size: 1.2rem;
+		}
+		th, td {
+			border: 1px solid black;
+			padding: 0.5rem;
+			width: calc(100% / 8); /* changed from 6 to 8 */
+		}
+		th {
+			background-color: #333;
+			color: white;
+			text-align: center;
+		}
+		td {
+			text-align: center;
+		}
+		td.cell {
+			position: relative;
+		}
+		button {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: transparent;
+			border: none;
+			cursor: pointer;
+			font-size: 1.2rem;
+			color: #333;
+		}
+		button:hover {
+			background-color: #ccc;
+		}
+		@media (max-width: 768px) {
+			table {
+				font-size: 1rem;
+			}
+			th, td {
+				padding: 0.2rem;
+			}
+			button {
+				font-size: 1rem;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Schedule System</h1>
+		<div class="table-container">
+			<table>
+				<thead>
+					<tr>
+						<th>Time</th>
+						 <th>Monday</th>
+						<th>Tuesday</th>
+						<th>Wednesday</th>
+						<th>Thursday</th>
+						<th>Friday</th>
+						<th>Saturday</th>
+						<th>Sunday</th>
+					</tr>
+				</thead>
+				<tbody id="schedule-body">
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script>
+	const tbody = document.getElementById('schedule-body');
+
+for (let i = 0; i < 24; i++) {
+  const row = document.createElement('tr');
+  const hour = document.createElement('td');
+  hour.textContent = `${i < 10 ? '0' : ''}${i}:00`;
+  row.appendChild(hour);
+
+  for (let j = 0; j < 7; j++) {
+    const cell = document.createElement('td');
+    cell.classList.add('cell');
+    const button = document.createElement('button');
+    button.addEventListener('click', () => {
+      const task = prompt('Enter task name:');
+      if (task) {
+        const color = prompt('Enter color (hex code or color name):');
+        button.innerText = task;
+        button.style.backgroundColor = color;
+      }
+    });
+    cell.appendChild(button);
+    row.appendChild(cell);
+  }
+
+  tbody.appendChild(row);
+}
+	</script>
+</body>
+</html>
